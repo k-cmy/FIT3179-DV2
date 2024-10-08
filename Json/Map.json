@@ -69,8 +69,9 @@
               "titleColor": "#ffffff", 
               "labelColor": "#ffffff",  
               "clipHeight": 30,
-              "gradientLength": 200,
-              "format": ".2f"
+              "gradientLength": 400,
+              "format": ".2f",
+              "orient": "bottom"
             }
           },
           "tooltip": [
@@ -122,8 +123,11 @@
         "color": "#ffffff"  
       },
       "legend": {
+        
         "titleColor": "#ffffff",  
-        "labelColor": "#ffffff"   
+        "labelColor": "#ffffff",
+        "orient": "bottom"
+    
       }
     }
-  } 
+  }
