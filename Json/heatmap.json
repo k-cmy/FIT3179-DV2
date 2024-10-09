@@ -1,0 +1,57 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "description": "Heatmap of Interest Rates Over Time",
+    "data": {
+      "url": "https://raw.githubusercontent.com/k-cmy/FIT3179-DV2/main/Datasets/interest_rates_2024.csv"
+    },
+    "mark": "rect",
+    "encoding": {
+      "x": {
+        "field": "date",
+        "timeUnit": "yearmonth",
+        "type": "ordinal",
+        "title": "Date",
+        "axis": {
+          "labelAngle": -45,
+          "format": "%Y-%m"
+        }
+      },
+      "y": {
+        "field": "rate",
+        "type": "nominal",
+        "title": "Rate Type"
+      },
+      "color": {
+        "field": "value",
+        "type": "quantitative",
+        "title": "Interest Rate (%)",
+        "scale": {
+          "scheme": "viridis"
+        }
+      },
+      "tooltip": [
+        {"field": "date", "type": "temporal", "title": "Date", "format": "%Y-%m-%d"},
+        {"field": "rate", "type": "nominal", "title": "Rate Type"},
+        {"field": "bank", "type": "nominal", "title": "Bank Type"},
+        {"field": "value", "type": "quantitative", "title": "Interest Rate (%)", "format": ".2f"}
+      ]
+    },
+    "width": 1000,
+    "height": 600,
+    "config": {
+      "view": {"stroke": null},
+      "axis": {"grid": true}
+    },
+    "title": {
+      "text": "Interest Rates Heatmap Over Time",
+      "subtitle": "Showing all rate types across all available dates",
+      "font": "Arial",  
+      "fontSize": 20, 
+      "fontWeight": "bold",  
+      "subtitleFont": "Arial", 
+      "subtitleFontSize": 16,  
+      "subtitleFontWeight": "normal",
+        "color": "#333"
+    }
+  }
+  
