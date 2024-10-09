@@ -2,7 +2,8 @@
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "title": {
       "text": "Average Malaysian Ringgit Exchange Rates (2024)",
-      "color": "#ffffff"
+      "color": "#ffffff",
+      "fontSize":16
     },
     "width": 800,
     "height": 400,
@@ -13,23 +14,24 @@
     "layer": [
       {
         "data": {
+          "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_110m_ocean.geojson",
+          "format": {"type": "json"}
+        },
+        "mark": {
+          "type": "geoshape",
+          "fill": "skyblue"
+        }
+      },
+      {
+        "data": {
           "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_110m_graticules_30.geojson",
           "format": {"type": "json"}
         },
         "mark": {
           "type": "geoshape",
-          "stroke": "lightgray",
-          "strokeWidth": 0.5
-        }
-      },
-      {
-        "data": {
-          "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_110m_ocean.geojson",
-          "format": {"type": "json"}  
-        },
-        "mark": {
-          "type": "geoshape",
-          "fill": "skyblue"
+          "stroke": "#888",
+          "strokeWidth": 0.5,
+          "fill": null
         }
       },
       {
@@ -65,15 +67,20 @@
               "clamp": true
             },
             "legend": {
-              "title": "Exchange Rate (Currency per 1 MYR)",
-              "titleColor": "#ffffff", 
-              "labelColor": "#ffffff",  
-              "clipHeight": 30,
-              "gradientLength": 400,
-              "format": ".2f",
-              "orient": "bottom"
-            }
-          },
+                "title": "Exchange Rate (Currency per 1 MYR)",
+                "titleColor": "#ffffff",
+                "labelColor": "#ffffff",
+                "clipHeight": 30,
+                "gradientLength": 300,
+                "format": ".4f",
+                "orient": "bottom",
+                "offset": 10,
+                "titleLimit": 300,
+                "titleFontSize": 12,
+                "labelFontSize": 10,
+                "direction": "horizontal"
+              }
+            },
           "tooltip": [
             {"field": "properties.NAME", "type": "nominal", "title": "Country"},
             {"field": "exchange_rate", "type": "quantitative", "title": "Avg Exchange Rate (MYR)", "format": ".4f"}
@@ -123,11 +130,9 @@
         "color": "#ffffff"  
       },
       "legend": {
-        
         "titleColor": "#ffffff",  
         "labelColor": "#ffffff",
         "orient": "bottom"
-    
       }
     }
-  }
+  }  
