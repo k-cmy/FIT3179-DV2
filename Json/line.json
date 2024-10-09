@@ -1,0 +1,68 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "title": {
+      "text": "Monthly Interest Rates (Bank Negara Malaysia)",
+      "color": "#333",
+      "fontSize": 16
+    },
+    "width": 800,
+    "height": 400,
+    "data": {
+      "url": "https://raw.githubusercontent.com/k-cmy/FIT3179-DV2/main/Datasets/interest_rates.csv"
+    },
+    "transform": [
+      {
+        "calculate": "{'fdr_1mo': 'Fixed Deposit (1 Month)', 'fdr_3mo': 'Fixed Deposit (3 Months)', 'fdr_6mo': 'Fixed Deposit (6 Months)', 'fdr_9mo': 'Fixed Deposit (9 Months)', 'fdr_12mo': 'Fixed Deposit (12 Months)', 'wafdr_1mo': 'Weighted Average FD (1 Month)', 'wafdr_3mo': 'Weighted Average FD (3 Months)', 'wafdr_6mo': 'Weighted Average FD (6 Months)', 'wafdr_9mo': 'Weighted Average FD (9 Months)', 'wafdr_12mo': 'Weighted Average FD (12 Months)', 'sr': 'Savings Rate', 'wasr': 'Weighted Average Savings Rate', 'br': 'Base Rate', 'wabr': 'Weighted Average Base Rate', 'blr': 'Base Lending Rate', 'wablr': 'Weighted Average Base Lending Rate', 'alr': 'Average Lending Rate', 'walr': 'Weighted Average Lending Rate'}[datum.rate]",
+        "as": "rate_label"
+      },
+      {
+        "filter": {"param": "bankFilter"}
+      }
+    ],
+    "params": [
+      {
+        "name": "bankFilter",
+        "select": {"type": "point", "fields": ["bank"]},
+        "bind": {
+          "input": "select",
+          "options": ["commercial", "investment"],
+          "labels": ["Commercial Banks", "Investment Banks"],
+          "name": "Select Bank Type: "
+        }
+      }
+    ],
+    "mark": "trail",
+    "encoding": {
+      "x": {
+        "field": "date",
+        "type": "temporal",
+        "timeUnit": "yearmonth",
+        "title": "Date",
+        "axis": {"labelAngle": -45, "format": "%Y-%m"}
+      },
+      "y": {
+        "field": "value",
+        "type": "quantitative",
+        "title": "Interest Rate (%)"
+      },
+      "color": {
+        "field": "rate_label",
+        "type": "nominal",
+        "title": "Rate Type",
+        "scale": {"scheme": "category20"},
+      },
+      "tooltip": [
+        {"field": "date", "type": "temporal", "title": "Date", "format": "%Y-%m-%d"},
+        {"field": "bank", "type": "nominal", "title": "Bank Type"},
+        {"field": "rate_label", "type": "nominal", "title": "Rate Type"},
+        {"field": "value", "type": "quantitative", "title": "Interest Rate (%)", "format": ".2f"}
+      ]
+    },
+    "config": {
+      "axis": {"labelColor": "#333", "titleColor": "#333"},
+      "background": "#f9f9f9"
+    }
+  }
+
+  
+  
