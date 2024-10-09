@@ -5,8 +5,8 @@
       "color": "#ffffff",
       "fontSize":16
     },
-    "width": 800,
-    "height": 400,
+    "width": 810,
+    "height": 415,
     "background": "#2c3e50",
     "projection": {
       "type": "naturalEarth1" 
@@ -136,4 +136,4 @@
         "orient": "bottom"
       }
     }
-  }  
+}
