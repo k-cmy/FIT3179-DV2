@@ -1,139 +1,176 @@
 {
-    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-    "title": {
-      "text": "Average Malaysian Ringgit Exchange Rates (2024)",
-      "color": "#ffffff",
-      "fontSize":16
-    },
-    "width": 810,
-    "height": 415,
-    "background": "#2c3e50",
-    "projection": {
-      "type": "naturalEarth1" 
-    },
-    "layer": [
-      {
-        "data": {
-          "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_110m_ocean.geojson",
-          "format": {"type": "json"}
-        },
-        "mark": {
-          "type": "geoshape",
-          "fill": "skyblue"
-        }
-      },
-      {
-        "data": {
-          "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_110m_graticules_30.geojson",
-          "format": {"type": "json"}
-        },
-        "mark": {
-          "type": "geoshape",
-          "stroke": "#888",
-          "strokeWidth": 0.5,
-          "fill": null
-        }
-      },
-      {
-        "data": {
-          "url": "https://raw.githubusercontent.com/k-cmy/FIT3179-HW-WK-9-WK-10/main/ne_110m_admin_0_countries.topojson",
-          "format": {"type": "topojson", "feature": "ne_110m_admin_0_countries"}
-        },
-        "transform": [
-          {
-            "lookup": "properties.NAME",
-            "from": {
-              "data": {
-                "url": "https://raw.githubusercontent.com/k-cmy/FIT3179-DV2/main/Datasets/avg_exchange_rates_2024.csv"
-              },
-              "key": "country",
-              "fields": ["exchange_rate", "currency_code"]  
-            }
-          }
-        ],
-        "mark": {
-          "type": "geoshape",
-          "stroke": "white",
-          "strokeWidth": 0.5
-        },
-        "encoding": {
-          "color": {
-            "field": "exchange_rate",
-            "type": "quantitative",
-            "scale": {
-              "type": "log",
-              "domain": [0.1, 0.5, 1, 5, 10, 50, 100, 1000, 3000],
-              "range": ["#ffffcc", "#ffeda0", "#fed976", "#feb24c", "#fd8d3c", "#f03b20", "#bd0026", "#800026"],
-              "clamp": true
-            },
-            "legend": {
-                "title": "Exchange Rate (Currency per 1 MYR)",
-                "titleColor": "#ffffff",
-                "labelColor": "#ffffff",
-                "clipHeight": 30,
-                "gradientLength": 300,
-                "format": ".4f",
-                "orient": "bottom",
-                "offset": 10,
-                "titleLimit": 300,
-                "titleFontSize": 12,
-                "labelFontSize": 10,
-                "direction": "horizontal"
-              }
-            },
-          "tooltip": [
-            {"field": "properties.NAME", "type": "nominal", "title": "Country"},
-            {"field": "exchange_rate", "type": "quantitative", "title": "Avg Exchange Rate (MYR)", "format": ".4f"},
-             {"field": "currency_code", "type": "nominal", "title": "Currency Code"}
-          ]
-        }
-      },
-      {
-        "data": {
-          "url": "https://raw.githubusercontent.com/k-cmy/FIT3179-HW-WK-9-WK-10/main/ne_110m_admin_0_countries.topojson",
-          "format": {"type": "topojson", "feature": "ne_110m_admin_0_countries"}
-        },
-        "transform": [
-          {
-            "lookup": "properties.NAME",
-            "from": {
-              "data": {
-                "url": "https://raw.githubusercontent.com/k-cmy/FIT3179-DV2/main/Datasets/avg_exchange_rates_2024.csv"
-              },
-              "key": "country",
-              "fields": ["exchange_rate"]
-            }
-          },
-          {
-            "filter": "datum.exchange_rate === null"
-          },
-          {
-            "calculate": "'No data available'", "as": "noDataText"
-          }
-        ],
-        "mark": {
-          "type": "geoshape",
-          "fill": "#cccccc",
-          "stroke": "white",
-          "strokeWidth": 0.5
-        },
-        "encoding": {
-          "tooltip": [
-            {"field": "properties.NAME", "type": "nominal", "title": "Country"},
-            {"field": "noDataText", "type": "nominal", "title": "Exchange Rate"}
-          ]
-        }
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": {
+    "text": "Average Malaysian Ringgit Exchange Rates (2024)",
+    "color": "#ffffff",
+    "fontSize": 30,
+    "font": "Helvetica Neue",
+    "fontWeight": "bold"
+  },
+  "width": 1500,
+  "height": 800,
+  "background": "#2c3e50",
+  "projection": {
+    "type": "naturalEarth1"
+  },
+  "params": [
+    {
+      "name": "zoom",
+      "value": 260,
+      "bind": {
+        "input": "range",
+        "min": 260,
+        "max": 1000,
+        "step": 20,
+        "name": "Zoom: "
       }
-    ],
-    "config": {
-      "background": "#2c3e50",
-      "title": {
-        "color": "#ffffff"  
-      },
-      "legend": {
-        "titleColor": "#ffffff",  
-        "labelColor": "#ffffff",
-        "orient": "bottom"
+    },
+    {
+      "name": "center",
+      "value": [0, 0],
+      "bind": {
+        "input": "select",
+        "options": [
+          [0, 0],
+          [100, 0],
+          [-100, 0],
+          [0, 50],
+          [0, -50]
+        ],
+        "labels": ["Center", "East", "West", "North", "South"],
+        "name": "Map Center: "
       }
     }
+  ],
+  "layer": [
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_110m_ocean.geojson",
+        "format": {"type": "json"}
+      },
+      "mark": {
+        "type": "geoshape",
+        "fill": "skyblue"
+      }
+    },
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_110m_graticules_30.geojson",
+        "format": {"type": "json"}
+      },
+      "mark": {
+        "type": "geoshape",
+        "stroke": "#888",
+        "strokeWidth": 0.5,
+        "fill": null
+      }
+    },
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/k-cmy/FIT3179-HW-WK-9-WK-10/main/ne_110m_admin_0_countries.topojson",
+        "format": {"type": "topojson", "feature": "ne_110m_admin_0_countries"}
+      },
+      "transform": [
+        {
+          "lookup": "properties.NAME",
+          "from": {
+            "data": {
+              "url": "https://raw.githubusercontent.com/k-cmy/FIT3179-DV2/main/Datasets/avg_exchange_rates_2024.csv"
+            },
+            "key": "country",
+            "fields": ["exchange_rate", "currency_code"]  
+          }
+        }
+      ],
+      "mark": {
+        "type": "geoshape",
+        "stroke": "white",
+        "strokeWidth": 0.5
+      },
+      "encoding": {
+        "color": {
+          "field": "exchange_rate",
+          "type": "quantitative",
+          "scale": {
+            "type": "log",
+            "domain": [0.1, 0.5, 1, 5, 10, 50, 100, 1000, 3000],
+            "range": ["#ffffcc", "#ffeda0", "#fed976", "#feb24c", "#fd8d3c", "#f03b20", "#bd0026", "#800026"],
+            "clamp": true
+          },
+          "legend": {
+            "title": "Exchange Rate (Currency per 1 MYR)",
+            "titleColor": "#ffffff",
+            "labelColor": "#ffffff",
+            "clipHeight": 30,
+            "gradientLength": 300,
+            "format": ".4f",
+            "orient": "bottom",
+            "offset": 10,
+            "titleLimit": 300,
+            "titleFontSize": 12,
+            "labelFontSize": 10,
+            "direction": "horizontal"
+          }
+        },
+        "tooltip": [
+          {"field": "properties.NAME", "type": "nominal", "title": "Country"},
+          {"field": "exchange_rate", "type": "quantitative", "title": "Avg Exchange Rate (MYR)", "format": ".4f"},
+          {"field": "currency_code", "type": "nominal", "title": "Currency Code"}
+        ]
+      }
+    },
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/k-cmy/FIT3179-HW-WK-9-WK-10/main/ne_110m_admin_0_countries.topojson",
+        "format": {"type": "topojson", "feature": "ne_110m_admin_0_countries"}
+      },
+      "transform": [
+        {
+          "lookup": "properties.NAME",
+          "from": {
+            "data": {
+              "url": "https://raw.githubusercontent.com/k-cmy/FIT3179-DV2/main/Datasets/avg_exchange_rates_2024.csv"
+            },
+            "key": "country",
+            "fields": ["exchange_rate"]
+          }
+        },
+        {
+          "filter": "datum.exchange_rate === null"
+        },
+        {
+          "calculate": "'No data available'", "as": "noDataText"
+        }
+      ],
+      "mark": {
+        "type": "geoshape",
+        "fill": "#cccccc",
+        "stroke": "white",
+        "strokeWidth": 0.5
+      },
+      "encoding": {
+        "tooltip": [
+          {"field": "properties.NAME", "type": "nominal", "title": "Country"},
+          {"field": "noDataText", "type": "nominal", "title": "Exchange Rate"}
+        ]
+      }
+    }
+  ],
+  "config": {
+    "background": "#2c3e50",
+    "title": {
+      "color": "#ffffff"  
+    },
+    "legend": {
+      "titleColor": "#ffffff",  
+      "labelColor": "#ffffff",
+      "orient": "bottom"
+    }
+  },
+  "view": {"stroke": null},
+  "projection": {
+    "type": "naturalEarth1",
+    "scale": {"expr": "zoom"},
+    "center": {"expr": "center"}
+  }
 }
