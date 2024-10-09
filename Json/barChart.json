@@ -1,0 +1,48 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "description": "Bar chart showing the sum of money aggregates (M1, M2, etc.) over time.",
+    "data": {
+      "url": "https://raw.githubusercontent.com/k-cmy/FIT3179-DV2/main/Datasets/money_aggregates_2020_2024.csv"
+    },
+    "transform": [
+      {
+        "calculate": "datum.measure == 'm1_total' ? 'M1' : datum.measure == 'm2_total' ? 'M2' : datum.measure == 'm3_total' ? 'M3' :'Other'",
+        "as": "aggregate_type",
+        
+      }
+    ],
+    "facet": {
+      "column": {
+        "field": "aggregate_type",
+        "type": "nominal",
+        "header": {
+          "title": "Money Aggregate Type"
+        }
+      }
+    },
+    "spec": {
+      "width": 200,
+      "mark": "bar",
+      "encoding": {
+        "x": {
+          "field": "date",
+          "type": "temporal",
+          "title": "Date",
+          "axis": {"format": "%Y-%m"}
+        },
+        "y": {
+          "aggregate": "sum",
+          "field": "value",
+          "type": "quantitative",
+          "title": "Sum of Value"
+        },
+        "color": {
+          "field": "aggregate_type",
+          "type": "nominal",
+          "scale": {"range": ["#675193", "#ca8861", "#9c89b8"]},
+          "title": "Aggregate Type"
+        }
+      }
+    }
+  }
+  
