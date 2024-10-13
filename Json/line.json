@@ -1,7 +1,7 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": "Monthly Interest Rates (Bank Negara Malaysia)",
-  "width": 1000,
+  "width":1000,
   "height": 600,
   "data": {
     "url": "https://raw.githubusercontent.com/k-cmy/FIT3179-DV2/main/Datasets/interest_rates.csv"
@@ -97,7 +97,8 @@
         "field": "variable_en",
         "type": "nominal",
         "title": "Interest Rate Type",
-        "scale": {"scheme": "category20b"}
+        "scale": {"scheme": "category20b"},
+        "legend": null
       },
       "value": "gray"
     },
@@ -125,7 +126,10 @@
           "on": "mouseover"
         }
       }],
-      "mark": {"type": "line", "strokeWidth": 20, "stroke": "transparent"}
+     "mark": {
+      "type": "circle",
+      "size": 20
+    }
     },
     {
       "mark": "line"
@@ -133,9 +137,6 @@
   ],
   "config": {
     "view": {"stroke": null},
-    "legend": {
-      "orient": "right"
-    },
     "axis": {
       "domain": false,
       "labelColor": "#444",
