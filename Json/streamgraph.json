@@ -1,0 +1,58 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "description": "Interactive Streamgraph of Currency in Circulation over time",
+    "width": 1000,
+    "height": 600,
+    "title": "Currency in Circulation Over Time",
+    "data": {
+      "url": "https://raw.githubusercontent.com/k-cmy/FIT3179-DV2/main/Datasets/currency_in_circulation.csv"
+    },
+    "transform": [
+      {"filter": "datum.denomination != 'total'"},
+      {
+        "calculate": "parseFloat(datum.value)",
+        "as": "value_num"
+      }
+    ],
+    "params": [
+      {
+        "name": "denomination",
+        "select": {"type": "point", "fields": ["denomination"]},
+        "bind": "legend"
+      }
+    ],
+    "mark": "area",
+    "encoding": {
+      "x": {
+        "field": "date",
+        "type": "temporal",
+        "axis": {"format": "%Y", "title": "Year", "domain": false, "tickSize": 0}
+      },
+      "y": {
+        "field": "value_num",
+        "type": "quantitative",
+        "axis": {"title": "Value in Circulation (RM millions)"},
+        "stack": "center"
+      },
+      "color": {
+        "field": "denomination",
+        "type": "nominal",
+        "scale": {
+          "scheme": "category20"
+        },
+        "legend": {
+          "title": "Denomination",
+          "orient": "right"
+        }
+      },
+      "opacity": {
+        "condition": {"param": "denomination", "value": 1},
+        "value": 0.2
+      },
+      "tooltip": [
+        {"field": "date", "type": "temporal", "title": "Date", "format": "%Y-%m"},
+        {"field": "denomination", "type": "nominal", "title": "Denomination"},
+        {"field": "value_num", "type": "quantitative", "title": "Value (RM millions)", "format": ",.2f"}
+      ]
+    }
+  }
