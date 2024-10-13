@@ -2,13 +2,13 @@
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "title":{
       "text":"Yearly Interest Rates (Bank Negara Malaysia)",
-      "fontSize":25,
+      "fontSize":30,
        "font": "Time New Roman",
       "fontWeight": "bold"
   
     } ,
-    "width": 1000,
-    "height": 600,
+   "width":800,
+  "height": 400,
     "data": {
       "url": "https://raw.githubusercontent.com/k-cmy/FIT3179-DV2/main/Datasets/interest_rates_annual.csv"
     },

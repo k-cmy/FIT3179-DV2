@@ -101,14 +101,14 @@
             "title": "Exchange Rate (Currency per 1 MYR)",
             "titleColor": "#ffffff",
             "labelColor": "#ffffff",
-            "clipHeight": 30,
-            "gradientLength": 300,
+            "clipHeight": 10,
+            "gradientLength": 500,
             "format": ".4f",
             "orient": "bottom",
             "offset": 10,
             "titleLimit": 300,
-            "titleFontSize": 12,
-            "labelFontSize": 10,
+            "titleFontSize": 16,
+            "labelFontSize": 16,
             "direction": "horizontal"
           }
         },

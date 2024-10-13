@@ -1,8 +1,14 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "title": "Monthly Interest Rates (Bank Negara Malaysia)",
-  "width":1000,
-  "height": 600,
+  "title":{
+      "text":"Monthly Interest Rates (Bank Negara Malaysia)",
+      "fontSize":30,
+       "font": "Time New Roman",
+      "fontWeight": "bold"
+  
+    },
+  "width":800,
+  "height": 400,
   "data": {
     "url": "https://raw.githubusercontent.com/k-cmy/FIT3179-DV2/main/Datasets/interest_rates.csv"
   },

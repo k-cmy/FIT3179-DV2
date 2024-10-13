@@ -1,6 +1,11 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-    "title": "Monetary Aggregates Over Time",
+    "title": {
+        "text": "Monetary Aggregates Over Time",
+        "fontSize": 30,
+        "font": "Time New Roman",
+        "fontWeight": "bold"
+        },
     "width": 1000,
     "height": 600,
     "data": {
