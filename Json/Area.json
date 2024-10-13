@@ -1,0 +1,91 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "title": "Monetary Aggregates Over Time",
+    "width": 1000,
+    "height": 600,
+    "data": {
+      "url": "https://raw.githubusercontent.com/k-cmy/FIT3179-DV2/main/Datasets/money_aggregates.csv"
+    },
+    "transform": [
+      {
+        "filter": {
+          "field": "measure",
+          "oneOf": [
+            "m1_total", "m2_total", "m3_total", "m1_currency", "m2_deposit_fixed", 
+            "m1_deposit_demand", "m2_deposit_saving", "m2_nid", "m2_repo", 
+            "m2_deposit_fx", "m2_deposit_other", "m3_deposit_other"
+          ]
+        }
+      }
+    ],
+    "params": [
+      {
+        "name": "hover", 
+        "select": {
+          "type": "point", 
+          "on": "mouseover", 
+          "fields": ["measure"], 
+          "clear": "mouseout"
+        }
+      },
+      {
+        "name": "brush",
+        "select": {
+          "type": "interval",
+          "encodings": ["x"]
+        }
+      },
+      {
+        "name": "selectMeasure", 
+        "select": {
+          "type": "point", 
+          "fields": ["measure"]
+        },
+        "bind": "legend"
+      }
+    ],
+    "mark": {
+      "type": "area",
+      "tooltip": true
+    },
+    "encoding": {
+      "x": {
+        "field": "date",
+        "type": "temporal",
+        "title": "Date",
+        "axis": {"format": "%Y-%m"},
+        "scale": {"domain": {"param": "brush"}}
+      },
+      "y": {
+        "field": "value",
+        "type": "quantitative",
+        "title": "Value (RM million)",
+        "stack": "zero"
+      },
+      "color": {
+        "field": "measure",
+        "type": "nominal",
+        "title": "Monetary Aggregate Component",
+        "scale": {
+          "scheme": "tableau20"
+        }
+      },
+      "opacity": {
+        "condition": {
+          "param": "hover",
+          "value": 1
+        },
+        "value": 0.7
+      },
+      "tooltip": [
+        {"field": "date", "type": "temporal", "title": "Date", "format": "%Y-%m"},
+        {"field": "measure", "type": "nominal", "title": "Measure"},
+        {"field": "value", "type": "quantitative", "title": "Value (RM million)", "format": ",.0f"}
+      ]
+    },
+    "config": {
+      "legend": {"orient": "top-left"},
+      "axis": {"domain": false, "labelColor": "#444", "titleColor": "#444"}
+    }
+  }
+  
