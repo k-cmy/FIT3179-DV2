@@ -1,0 +1,145 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "title": "Monthly Interest Rates (Bank Negara Malaysia)",
+    "width": 1000,
+    "height": 600,
+    "data": {
+      "url": "https://raw.githubusercontent.com/k-cmy/FIT3179-DV2/main/Datasets/interest_rates.csv"
+    },
+    "transform": [
+      {
+        "lookup": "rate",
+        "from": {
+          "data": {
+            "url": "https://raw.githubusercontent.com/k-cmy/FIT3179-DV2/main/Datasets/money_banking_lookup.csv"
+          },
+          "key": "variable",
+          "fields": ["variable_en"]
+        }
+      },
+      {
+        "aggregate": [
+          {"op": "mean", "field": "value", "as": "mean_value"}
+        ],
+        "groupby": ["date", "variable_en"]
+      },
+      {
+        "filter": "rate_type_filter == null || datum.variable_en == rate_type_filter"
+      }
+    ],
+    "params": [
+      {
+        "name": "rate_type_filter",
+        "value": null,
+        "bind": {
+          "input": "select",
+          "options": [
+            null,
+            "Fixed Deposit Rate (1mo)",
+            "Fixed Deposit Rate (3mo)",
+            "Fixed Deposit Rate (6mo)",
+            "Fixed Deposit Rate (9mo)",
+            "Fixed Deposit Rate (12mo)",
+            "Weighted Avg Fixed Deposit Rate (1mo)",
+            "Weighted Avg Fixed Deposit Rate (3mo)",
+            "Weighted Avg Fixed Deposit Rate (6mo)",
+            "Weighted Avg Fixed Deposit Rate (9mo)",
+            "Weighted Avg Fixed Deposit Rate (12mo)",
+            "Savings Deposit Rate",
+            "Weighted Avg Savings Deposit Rate",
+            "Base Rate (BR)",
+            "Weighted Avg BR",
+            "Base Lending Rate (BLR)",
+            "Weighted Avg BLR",
+            "Avg Lending Rate (ALR) on Outstanding Loans",
+            "Weighted ALR"
+          ],
+          "labels": [
+            "All Types",
+            "Fixed Deposit Rate (1mo)",
+            "Fixed Deposit Rate (3mo)",
+            "Fixed Deposit Rate (6mo)",
+            "Fixed Deposit Rate (9mo)",
+            "Fixed Deposit Rate (12mo)",
+            "Weighted Avg Fixed Deposit Rate (1mo)",
+            "Weighted Avg Fixed Deposit Rate (3mo)",
+            "Weighted Avg Fixed Deposit Rate (6mo)",
+            "Weighted Avg Fixed Deposit Rate (9mo)",
+            "Weighted Avg Fixed Deposit Rate (12mo)",
+            "Savings Deposit Rate",
+            "Weighted Avg Savings Deposit Rate",
+            "Base Rate (BR)",
+            "Weighted Avg BR",
+            "Base Lending Rate (BLR)",
+            "Weighted Avg BLR",
+            "Avg Lending Rate (ALR) on Outstanding Loans",
+            "Weighted ALR"
+          ],
+          "name": "Select Rate Type"
+        }
+      }
+    ],
+    "encoding": {
+      "x": {
+        "field": "date",
+        "type": "temporal",
+        "title": "Date",
+        "axis": {"format": "%Y-%m"}
+      },
+      "y": {
+        "field": "mean_value",
+        "type": "quantitative",
+        "title": "Mean Interest Rate (%)"
+      },
+      "color": {
+        "condition": {
+          "param": "hover",
+          "field": "variable_en",
+          "type": "nominal",
+          "title": "Interest Rate Type",
+          "scale": {"scheme": "category20b"}
+        },
+        "value": "gray"
+      },
+      "opacity": {
+        "condition": {
+          "param": "hover",
+          "value": 1
+        },
+        "value": 0.2
+      },
+      "tooltip": [
+        {"field": "date", "type": "temporal", "title": "Date", "format": "%Y-%m"},
+        {"field": "variable_en", "type": "nominal", "title": "Rate Type"},
+        {"field": "mean_value", "type": "quantitative", "title": "Mean Interest Rate (%)", "format": ".2f"}
+      ]
+    },
+    "layer": [
+      {
+        "description": "Transparent layer for easier hover selection",
+        "params": [{
+          "name": "hover",
+          "select": {
+            "type": "point",
+            "fields": ["variable_en"],
+            "on": "mouseover"
+          }
+        }],
+        "mark": {"type": "line", "strokeWidth": 20, "stroke": "transparent"}
+      },
+      {
+        "mark": "line"
+      }
+    ],
+    "config": {
+      "view": {"stroke": null},
+      "legend": {
+        "orient": "right"
+      },
+      "axis": {
+        "domain": false,
+        "labelColor": "#444",
+        "titleColor": "#444"
+      }
+    }
+  }
