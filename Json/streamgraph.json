@@ -3,7 +3,12 @@
     "description": "Interactive Streamgraph of Currency in Circulation over time",
    "width": 1000,
     "height": 500,
-    "title": "Currency in Circulation Over Time",
+    "title": {
+        "text": "Currency in Circulation Over Time",
+        "fontSize": 30,
+        "font": "Times New Roman",
+        "fontWeight": "bold"
+    },
     "data": {
       "url": "https://raw.githubusercontent.com/k-cmy/FIT3179-DV2/main/Datasets/currency_in_circulation.csv"
     },
@@ -34,13 +39,13 @@
       "x": {
         "field": "date",
         "type": "temporal",
-        "axis": {"format": "%Y", "title": "Year", "domain": false, "tickSize": 0},
+        "axis": {"format": "%Y", "title": "Year","titleFontSize":16,"domain": false, "tickSize": 0},
         "scale": {"domain": {"param": "timeRange"}}
       },
       "y": {
         "field": "value_num",
         "type": "quantitative",
-        "axis": {"title": "Value in Circulation (Billion RM)", "format": "~s"},
+        "axis": {"title": "Value in Circulation (Billion RM)", "format": "~s","titleFontSize":16},
         "stack": "center"
       },
       "color": {

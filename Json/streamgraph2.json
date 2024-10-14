@@ -5,7 +5,7 @@
     "height": 500,
     "title": "Currency in Circulation Over Time",
     "data": {
-      "url": "https://raw.githubusercontent.com/k-cmy/FIT3179-DV2/main/Datasets/currency_in_circulation.csv"
+      "url": "https://raw.githubusercontent.com/k-cmy/FIT3179-DV2/main/Datasets/currency_in_circulation_annual.csv"
     },
     "transform": [
       {"filter": "datum.denomination != 'total'"},

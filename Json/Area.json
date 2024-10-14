@@ -12,24 +12,27 @@
       "url": "https://raw.githubusercontent.com/k-cmy/FIT3179-DV2/main/Datasets/money_aggregates.csv"
     },
     "transform": [
-      {
-        "filter": {
-          "field": "measure",
-          "oneOf": [
-            "m1_total", "m2_total", "m3_total", "m1_currency", "m2_deposit_fixed", 
-            "m1_deposit_demand", "m2_deposit_saving", "m2_nid", "m2_repo", 
-            "m2_deposit_fx", "m2_deposit_other", "m3_deposit_other"
-          ]
-        }
-      }
-    ],
+  {
+    "filter": {
+      "field": "measure",
+      "oneOf": [
+        "m1_total", "m2_total", "m3_total", "m1_currency", "m2_deposit_fixed", 
+        "m1_deposit_demand", "m2_deposit_saving", "m2_nid", "m2_repo", 
+        "m2_deposit_fx", "m2_deposit_other", "m3_deposit_other"
+      ]
+    }
+  },
+  {
+    "calculate": "datum.measure == 'm1_total' ? 'M1 Total' : datum.measure == 'm2_total' ? 'M2 Total' : datum.measure == 'm3_total' ? 'M3 Total' : datum.measure == 'm1_currency' ? 'Currency in Circulation' : datum.measure == 'm2_deposit_fixed' ? 'Fixed Deposits' : datum.measure == 'm1_deposit_demand' ? 'Demand Deposits' :datum.measure == 'm2_deposit_saving' ? 'Savings Deposits' :datum.measure == 'm2_nid' ? 'Negotiable Instruments of Deposit': datum.measure == 'm2_repo' ? 'Repurchase Agreements' :datum.measure == 'm2_deposit_fx' ? 'Foreign Currency Deposits' : datum.measure =='m2_deposit_other' ? 'Other Deposits (M2)' :datum.measure == 'm3_deposit_other' ? 'Other Deposits (M3)' :datum.measure","as": "Measure"
+  }
+],
     "params": [
       {
         "name": "hover", 
         "select": {
           "type": "point", 
           "on": "mouseover", 
-          "fields": ["measure"], 
+          "fields": ["Measure"], 
           "clear": "mouseout"
         }
       },
@@ -44,7 +47,7 @@
         "name": "selectMeasure", 
         "select": {
           "type": "point", 
-          "fields": ["measure"]
+          "fields": ["Measure"]
         },
         "bind": "legend"
       }
@@ -61,17 +64,20 @@
             "field": "date",
             "type": "temporal",
             "title": "Date",
-            "axis": {"format": "%Y-%m"},
+            "axis": {"format": "%Y-%m",
+            "titleFontSize": 16
+        },
             "scale": {"domain": {"param": "brush"}}
           },
           "y": {
             "field": "value",
             "type": "quantitative",
             "title": "Value (RM million)",
-            "stack": "zero"
+            "stack": "zero",
+            "axis": {"titleFontSize": 16}
           },
           "color": {
-            "field": "measure",
+            "field": "Measure",
             "type": "nominal",
             "title": "Monetary Aggregate Component",
             "scale": {
@@ -87,7 +93,7 @@
           },
           "tooltip": [
             {"field": "date", "type": "temporal", "title": "Date", "format": "%Y-%m"},
-            {"field": "measure", "type": "nominal", "title": "Measure"},
+            {"field": "Measure", "type": "nominal", "title": "Measure"},
             {"field": "value", "type": "quantitative", "title": "Value (RM million)", "format": ",.0f"}
           ]
         }
@@ -95,8 +101,8 @@
     ],
     "config": {
       "legend": {"orient": "top-left",
-      "titleFontSize": 16,
-      "labelFontSize": 14,
+      "titleFontSize": 14,
+      "labelFontSize": 12,
     "direction": "vertical",
     "titleLimit": 300,
     "titlePadding": 10,
