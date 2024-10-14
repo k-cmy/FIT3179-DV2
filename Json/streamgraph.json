@@ -1,8 +1,8 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "description": "Interactive Streamgraph of Currency in Circulation over time",
-    "width": 1000,
-    "height": 600,
+    "width": 1200,
+  "height": 700,
     "title": "Currency in Circulation Over Time",
     "data": {
       "url": "https://raw.githubusercontent.com/k-cmy/FIT3179-DV2/main/Datasets/currency_in_circulation.csv"
@@ -12,12 +12,20 @@
       {
         "calculate": "parseFloat(datum.value)",
         "as": "value_num"
+      },
+      {
+        "calculate": "datum.denomination == 'note_1' ? 'RM1 Note' : datum.denomination == 'note_2' ? 'RM2 Note' : datum.denomination == 'note_5' ? 'RM5 Note' : datum.denomination == 'note_10' ? 'RM10 Note' : datum.denomination == 'note_20' ? 'RM20 Note' : datum.denomination == 'note_50' ? 'RM50 Note' : datum.denomination == 'note_100' ? 'RM100 Note' : datum.denomination == 'note_500' ? 'RM500 Note' : datum.denomination == 'note_1000' ? 'RM1000 Note' : datum.denomination == 'note_others' ? 'Other Notes' : datum.denomination == 'coin_1' ? '1 Sen Coin' : datum.denomination == 'coin_5' ? '5 Sen Coin' : datum.denomination == 'coin_10' ? '10 Sen Coin' : datum.denomination == 'coin_20' ? '20 Sen Coin' : datum.denomination == 'coin_50' ? '50 Sen Coin' : datum.denomination == 'coin_rm1' ? 'RM1 Coin' : datum.denomination == 'coin_rm5' ? 'RM5 Coin' : datum.denomination == 'coin_others' ? 'Other Coins' : datum.denomination",
+        "as": "denomination_label"
       }
     ],
     "params": [
       {
+        "name": "timeRange",
+        "select": {"type": "interval", "encodings": ["x"]}
+      },
+      {
         "name": "denomination",
-        "select": {"type": "point", "fields": ["denomination"]},
+        "select": {"type": "point", "fields": ["denomination_label"]},
         "bind": "legend"
       }
     ],
@@ -26,23 +34,23 @@
       "x": {
         "field": "date",
         "type": "temporal",
-        "axis": {"format": "%Y", "title": "Year", "domain": false, "tickSize": 0}
+        "axis": {"format": "%Y", "title": "Year", "domain": false, "tickSize": 0},
+        "scale": {"domain": {"param": "timeRange"}}
       },
       "y": {
         "field": "value_num",
         "type": "quantitative",
-        "axis": {"title": "Value in Circulation (RM millions)"},
+        "axis": {"title": "Value in Circulation (Billion RM)", "format": "~s"},
         "stack": "center"
       },
       "color": {
-        "field": "denomination",
+        "field": "denomination_label",
         "type": "nominal",
-        "scale": {
-          "scheme": "category20"
-        },
+        "scale": {"scheme": "category20"},
         "legend": {
           "title": "Denomination",
-          "orient": "right"
+          "orient": "right",
+          "columns": 2
         }
       },
       "opacity": {
@@ -51,8 +59,8 @@
       },
       "tooltip": [
         {"field": "date", "type": "temporal", "title": "Date", "format": "%Y-%m"},
-        {"field": "denomination", "type": "nominal", "title": "Denomination"},
-        {"field": "value_num", "type": "quantitative", "title": "Value (RM millions)", "format": ",.2f"}
+        {"field": "denomination_label", "type": "nominal", "title": "Denomination"},
+        {"field": "value_num", "type": "quantitative", "title": "Value (Billion RM)", "format": ",.3f"}
       ]
     }
   }

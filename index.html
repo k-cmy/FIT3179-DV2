@@ -81,30 +81,31 @@
     }
 
     .visualization {
-      width: 100%;
-      min-height: 40vh;
-      margin-bottom: 40px;
+      width: auto;
+      height: auto;
+      margin-bottom: 20px;
       background-color: #e0e7ff;
-      border: 2px solid #4A90E2;
+      border: 3px solid #4A90E2;
       border-radius: 12px;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
       display: flex;
       justify-content: center;
       align-items: center; /* Center content vertically */
       overflow: hidden; /* Hide overflow content */
-    }
 
+    }
     /* New styles for chart container */
     .chart-container {
       display: flex;
-      justify-content: space-between;
-      width: 100%;
+      justify-content: center;
+      width: auto;
+      height: auto;
       flex-wrap: wrap; /* Allow wrapping on smaller screens */
     }
 
     .chart-wrapper {
-      width: 48%;
-      margin-bottom: 20px; /* Add space between charts when they wrap */
+      width: 400;
+      margin-bottom: 15px; /* Add space between charts when they wrap */
     }
 
     @media (max-width: 768px) {
@@ -125,7 +126,8 @@
       }
 
       .chart-wrapper {
-        width: 100%; /* Full width on small screens */
+        max-width: auto;
+        justify-content: center;
       }
     }
 
@@ -190,7 +192,9 @@
       <div class="pure-u-1-1">
         <div class="chart-container">
           <div class="chart-wrapper">
-            <div id="line" class="visualization"></div>
+            <div id="line" class="visualization">
+              <div id="line2" class="visualization">
+            </div>
           </div>
           <div class="chart-wrapper">
             <div id="line2" class="visualization"></div>

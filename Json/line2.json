@@ -7,8 +7,8 @@
       "fontWeight": "bold"
   
     } ,
-   "width":800,
-  "height": 400,
+   "width": 1200,
+  "height": 700,
     "data": {
       "url": "https://raw.githubusercontent.com/k-cmy/FIT3179-DV2/main/Datasets/interest_rates_annual.csv"
     },

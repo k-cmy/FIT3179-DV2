@@ -2,24 +2,23 @@
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "title": {
     "text": "Average Malaysian Ringgit Exchange Rates (2024)",
-    "color": "#ffffff",
+    "color": "black",
     "fontSize": 30,
     "font": "Helvetica Neue",
     "fontWeight": "bold"
   },
-  "width": 1200,
+  "width": 1400,
   "height": 700,
-  "background": "#2c3e50",
   "projection": {
     "type": "naturalEarth1"
   },
   "params": [
     {
       "name": "zoom",
-      "value": 210,
+      "value": 230,
       "bind": {
         "input": "range",
-        "min": 210,
+        "min": 230,
         "max": 1000,
         "step": 20,
         "name": "Zoom: "
@@ -99,8 +98,6 @@
           },
           "legend": {
             "title": "Exchange Rate (Currency per 1 MYR)",
-            "titleColor": "#ffffff",
-            "labelColor": "#ffffff",
             "clipHeight": 10,
             "gradientLength": 500,
             "format": ".4f",
@@ -157,13 +154,12 @@
     }
   ],
   "config": {
-    "background": "#2c3e50",
     "title": {
-      "color": "#ffffff"  
+      "color": "#black" 
     },
     "legend": {
-      "titleColor": "#ffffff",  
-      "labelColor": "#ffffff",
+      "titleColor": "black" ,  
+      "labelColor": "black" ,
       "orient": "bottom"
     }
   },

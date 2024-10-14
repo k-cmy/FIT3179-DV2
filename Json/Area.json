@@ -6,8 +6,8 @@
         "font": "Time New Roman",
         "fontWeight": "bold"
         },
-    "width": 1000,
-    "height": 600,
+"width": 1200,
+  "height": 700,    
     "data": {
       "url": "https://raw.githubusercontent.com/k-cmy/FIT3179-DV2/main/Datasets/money_aggregates.csv"
     },
@@ -89,7 +89,7 @@
       ]
     },
     "config": {
-      "legend": {"orient": "top-left"},
+      "legend": {"orient": "right"},
       "axis": {"domain": false, "labelColor": "#444", "titleColor": "#444"}
     }
   }
