@@ -80,7 +80,18 @@
   gap: 20px;
   margin-bottom: 30px;
     flex-wrap: wrap; /* Allow charts to wrap to the next line */
+    width: 700; /* Allow charts to take full width */
+    height: auto;
 
+}
+
+.vis_container {
+  display: flex;
+  /* smaller size for this container */
+  justify-content: center;
+  align-items: center;
+  height: auto;
+  width: 800;
 }
 
 .chart-wrapper {
@@ -155,7 +166,7 @@
       <h2>Interest Rate Trends in Malaysia</h2>
       <p>The line charts below represent the historical interest rates set by Bank Negara Malaysia. The left chart highlights monthly changes in lending and deposit rates, while the right chart shows yearly trends. This helps track borrowing costs and saving incentives over time, which are crucial for understanding Malaysia's financial landscape.</p>
     </div>
-    <div class="chart-container">
+    <div class="vis_container">
       <div class="chart-wrapper">
         <div id="line" class="visualization"></div>
       </div>
