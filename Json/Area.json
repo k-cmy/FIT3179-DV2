@@ -1,13 +1,13 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "title": {
-        "text": "Monetary Aggregates Over Time",
-        "fontSize": 30,
-        "font": "Time New Roman",
-        "fontWeight": "bold"
-        },
-"width": 1200,
-  "height": 700,    
+      "text": "Monetary Aggregates Over Time",
+      "fontSize": 30,
+      "font": "Times New Roman",
+      "fontWeight": "bold"
+    },
+    "width": 1000,
+    "height": 600,
     "data": {
       "url": "https://raw.githubusercontent.com/k-cmy/FIT3179-DV2/main/Datasets/money_aggregates.csv"
     },
@@ -49,48 +49,59 @@
         "bind": "legend"
       }
     ],
-    "mark": {
-      "type": "area",
-      "tooltip": true
-    },
-    "encoding": {
-      "x": {
-        "field": "date",
-        "type": "temporal",
-        "title": "Date",
-        "axis": {"format": "%Y-%m"},
-        "scale": {"domain": {"param": "brush"}}
-      },
-      "y": {
-        "field": "value",
-        "type": "quantitative",
-        "title": "Value (RM million)",
-        "stack": "zero"
-      },
-      "color": {
-        "field": "measure",
-        "type": "nominal",
-        "title": "Monetary Aggregate Component",
-        "scale": {
-          "scheme": "tableau20"
+    "layer": [
+      {
+        "mark": {
+          "type": "area",
+          "tooltip": true
         }
-      },
-      "opacity": {
-        "condition": {
-          "param": "hover",
-          "value": 1
-        },
-        "value": 0.7
-      },
-      "tooltip": [
-        {"field": "date", "type": "temporal", "title": "Date", "format": "%Y-%m"},
-        {"field": "measure", "type": "nominal", "title": "Measure"},
-        {"field": "value", "type": "quantitative", "title": "Value (RM million)", "format": ",.0f"}
-      ]
-    },
+        ,
+        "encoding": {
+          "x": {
+            "field": "date",
+            "type": "temporal",
+            "title": "Date",
+            "axis": {"format": "%Y-%m"},
+            "scale": {"domain": {"param": "brush"}}
+          },
+          "y": {
+            "field": "value",
+            "type": "quantitative",
+            "title": "Value (RM million)",
+            "stack": "zero"
+          },
+          "color": {
+            "field": "measure",
+            "type": "nominal",
+            "title": "Monetary Aggregate Component",
+            "scale": {
+              "scheme": "tableau20"
+            }
+          },
+          "opacity": {
+            "condition": {
+              "param": "hover",
+              "value": 1
+            },
+            "value": 0.7
+          },
+          "tooltip": [
+            {"field": "date", "type": "temporal", "title": "Date", "format": "%Y-%m"},
+            {"field": "measure", "type": "nominal", "title": "Measure"},
+            {"field": "value", "type": "quantitative", "title": "Value (RM million)", "format": ",.0f"}
+          ]
+        }
+      }
+    ],
     "config": {
-      "legend": {"orient": "right"},
+      "legend": {"orient": "top-left",
+      "titleFontSize": 16,
+      "labelFontSize": 14,
+    "direction": "vertical",
+    "titleLimit": 300,
+    "titlePadding": 10,
+    "labelLimit": 300,
+    "labelPadding": 10},
       "axis": {"domain": false, "labelColor": "#444", "titleColor": "#444"}
     }
   }
-  

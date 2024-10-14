@@ -1,8 +1,8 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "description": "Interactive Streamgraph of Currency in Circulation over time",
-    "width": 1200,
-  "height": 700,
+   "width": 1000,
+    "height": 500,
     "title": "Currency in Circulation Over Time",
     "data": {
       "url": "https://raw.githubusercontent.com/k-cmy/FIT3179-DV2/main/Datasets/currency_in_circulation.csv"
@@ -49,7 +49,9 @@
         "scale": {"scheme": "category20"},
         "legend": {
           "title": "Denomination",
-          "orient": "right",
+          "orient": "top-left",
+            "titleFontSize": 16,
+          "labelFontSize": 14,
           "columns": 2
         }
       },

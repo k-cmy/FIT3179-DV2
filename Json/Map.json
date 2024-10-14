@@ -7,18 +7,18 @@
     "font": "Helvetica Neue",
     "fontWeight": "bold"
   },
-  "width": 1400,
-  "height": 700,
+  "width": 1100,
+    "height": 600,
   "projection": {
     "type": "naturalEarth1"
   },
   "params": [
     {
       "name": "zoom",
-      "value": 230,
+      "value": 200,
       "bind": {
         "input": "range",
-        "min": 230,
+        "min": 200,
         "max": 1000,
         "step": 20,
         "name": "Zoom: "

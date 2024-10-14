@@ -1,140 +1,119 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="Chung Min Yi">
+  <meta name="description" content="Interactive visualizations showcasing key financial data in Malaysia, including monetary aggregates, interest rates, currency circulation, and exchange rates.">
   <title>Financial Market Malaysia</title>
+
   <!-- Import Vega & Vega-Lite -->
   <script src="https://cdn.jsdelivr.net/npm/vega@5.20.2"></script>
   <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.1.0"></script>
   <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.17.0"></script>
-
   <script src="vega_lite.js"></script>
 
   <!-- Import pure.css -->
-  <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css"
-    integrity="sha384-cg6SkqEOCV1NbJoCu11+bm0NvBRc8IYLRGXkmNrqUBfTjmMYwNKPWBTIKyw9mHNJ" crossorigin="anonymous">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css" integrity="sha384-cg6SkqEOCV1NbJoCu11+bm0NvBRc8IYLRGXkmNrqUBfTjmMYwNKPWBTIKyw9mHNJ" crossorigin="anonymous">
 
-  <!-- Google font -->
+  <!-- Google fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Merriweather&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&family=Merriweather&display=swap" rel="stylesheet">
 
-  <!-- CSS file -->
-  <link rel="stylesheet" type="text/css" href="css/styles.css" media="all">
-
+  <!-- Custom CSS -->
   <style>
     body {
-      font-family: 'Merriweather', 'Times New Roman', Times, serif;
+      font-family: 'Merriweather', serif;
       margin: 0;
       padding: 0;
-      overflow-x: hidden; /* Prevent horizontal scrolling */
       background-color: #f4f4f9;
-      text-align: center;
       color: #333;
+      text-align: center;
+      text-align: center;
     }
 
     .page {
-      margin: 20px auto; /* Center the page content */
-      display: flex;
-      flex-direction: column;
+      margin: 20px auto;
+      max-width: 1200px;
+      padding: 0 15px;
       align-items: center;
-      max-width: 1200px; /* Limit maximum width */
-      width: 95%; /* Use 95% of the viewport width */
-    }
-
-    h1, h2 {
-      color: #4A90E2;
-      text-align: center;
     }
 
     h1 {
-      font-weight: 700;
-      font-size: 57px;
-      margin-bottom: 15px;
-      font-family: 'Times New Roman', Times, serif;
-      font-style: bold;
+      font-size: 38px;
+      font-weight: bold;
+      color: #4A90E2;
+      margin-bottom: 20px;
+      text-align: center;
     }
 
     h2 {
-      font-weight: 600;
-      font-size: 40px;
+      font-size: 27px;
+      color: #4A90E2;
       margin-bottom: 10px;
-      font-family: 'Times New Roman', Times, serif;
-    }
-  
-    .description {
-      margin: 20px auto;
-      background-color: #ffffff;
-      padding: 20px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      border-radius: 8px;
-      width: 100%;
+      text-align: center;
     }
 
     p {
-      font-family: 'Helvetica', 'Arial', sans-serif;
-      font-size: 21px;
-      line-height: 1.5;
-      color: black;
-    }
-
-    .visualization {
-      width: auto;
-      height: auto;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 20px;
+      line-height: 1.6;
+      color: #333;
       margin-bottom: 20px;
-      background-color: #e0e7ff;
-      border: 3px solid #4A90E2;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-      display: flex;
-      justify-content: center;
-      align-items: center; /* Center content vertically */
-      overflow: hidden; /* Hide overflow content */
-
+      text-align: center;
     }
-    /* New styles for chart container */
+
+    .description {
+      background-color: #fff;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
     .chart-container {
-      display: flex;
-      justify-content: center;
-      width: auto;
-      height: auto;
-      flex-wrap: wrap; /* Allow wrapping on smaller screens */
-    }
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 30px;
+    flex-wrap: wrap; /* Allow charts to wrap to the next line */
 
-    .chart-wrapper {
-      width: 400;
-      margin-bottom: 15px; /* Add space between charts when they wrap */
-    }
+}
 
-    @media (max-width: 768px) {
-      h1 {
-        font-size: 36px;
-      }
+.chart-wrapper {
+  width: auto; /* Slightly reduce the width to give more space between charts */
+  box-sizing: border-box; /* Ensure padding and border are included in the width */
+  padding: 10px; /* Add some internal padding for clarity */
+  /* align-items: center; */
+  /* align-content: center; */
+  }
 
-      h2 {
-        font-size: 30px;
-      }
+.visualization {
+    width: auto;
+    height: auto;
+  padding: 10px;
+  background-color: #e0e7ff;
+  border: 3px solid #4A90E2;
+  border-radius: 12px;
+  overflow: hidden; /* Prevent any overflowing elements */
+  align-items: center;
+    align-content: center;
+}
 
-      p {
-        font-size: 22px;
-      }
 
-      .description {
-        padding: 15px;
-      }
-
-      .chart-wrapper {
-        max-width: auto;
-        justify-content: center;
-      }
+    .footer {
+      background-color: #4A90E2;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    align-items: center;
     }
 
     .small-font {
       font-size: 14px;
-      margin-top: 20px;
-      padding-bottom: 20px;
     }
 
     .small-font a {
@@ -146,11 +125,14 @@
       text-decoration: underline;
     }
 
-    .footer {
-      background-color: #4A90E2;
-      color: white;
-      padding: 20px 0;
-      width: 100%;
+    @media (max-width: 768px) {
+      .chart-container {
+        flex-direction: column;
+      }
+      
+      .chart-wrapper {
+        width: auto; /* Charts will take full width on smaller screens */
+      }
     }
   </style>
 </head>
@@ -158,94 +140,53 @@
 <body>
 
   <div class="page">
-    <!-- pure grid group -->
-    <div class="pure-g">
-      <div class="pure-u-1-1">
-        <h1>Financial Market Malaysia</h1>
-        <p>This page showcases a collection of interactive visualizations that provide in-depth insights into various aspects of the financial market in Malaysia. The visualizations highlight key financial data, including currency exchange rates, company financial performance (sales, profit, and market value), and the interest rate trends set by Bank Negara Malaysia. By using different types of charts, such as world maps, scatter plots, and line charts, the visualizations allow users to explore and analyze the data from different perspectives. These interactive tools aim to help users understand the dynamics of Malaysia's financial landscape, track historical changes, and identify patterns in economic indicators over time.</p>
-      </div>
-    </div>
-    <!-- end pure grid group -->
+    <h1>Financial Market Malaysia: A Data-Driven Insight</h1>
+    <p>This dashboard presents a comprehensive view of the Malaysian financial market through various visualizations. We explore key aspects such as monetary aggregates, interest rates, currency circulation, and exchange rates, providing you with an interactive experience to understand the trends and changes in Malaysia's economy.</p>
 
-    <!-- Visualization 1: Currency Exchange Rates Map -->
-    <div class="pure-g">
-      <div class="pure-u-1-1">
-        <div class="description">
-          <h2>Currency Exchange Rates against MYR</h2>
-          <p>This visualization displays a world map where each country is colored according to its currency exchange rate against the MYR over time.</p>
-        </div>
-      </div>
-      <div class="pure-u-1-1">
-        <div id="map" class="visualization"></div>
-      </div>
+    <!-- Visualization 1: Monetary Aggregates (M1, M2, M3) -->
+    <div class="description">
+      <h2>Monetary Aggregates: M1, M2, M3</h2>
+      <p>This area chart illustrates the flow of money in the economy, categorized by M1 (currency in circulation and demand deposits), M2 (including savings and fixed deposits), and M3 (broader money supply). This visualization shows how different forms of money supply have evolved over time, reflecting Malaysia's economic conditions and policy impacts.</p>
     </div>
-    <!-- end pure grid group -->
+    <div id="area" class="visualization"></div>
 
-    <!-- Visualization: Line Charts of Interest Rates -->
-    <div class="pure-g">
-      <div class="pure-u-1-1">
-        <div class="description">
-          <h2>Interest Rates for Bank Negara Malaysia</h2>
-          <p>These charts show the monthly (left) and yearly (right) interest rates for Bank Negara Malaysia from 1980 to 2024.</p>
-        </div>
+    <!-- Visualization 2: Interest Rates (Monthly and Annual) -->
+    <div class="description">
+      <h2>Interest Rate Trends in Malaysia</h2>
+      <p>The line charts below represent the historical interest rates set by Bank Negara Malaysia. The left chart highlights monthly changes in lending and deposit rates, while the right chart shows yearly trends. This helps track borrowing costs and saving incentives over time, which are crucial for understanding Malaysia's financial landscape.</p>
+    </div>
+    <div class="chart-container">
+      <div class="chart-wrapper">
+        <div id="line" class="visualization"></div>
       </div>
-      <div class="pure-u-1-1">
-        <div class="chart-container">
-          <div class="chart-wrapper">
-            <div id="line" class="visualization">
-              <div id="line2" class="visualization">
-            </div>
-          </div>
-          <div class="chart-wrapper">
-            <div id="line2" class="visualization"></div>
-          </div>
-        </div>
+      <div class="chart-wrapper">
+        <div id="line2" class="visualization"></div>
       </div>
     </div>
 
-    <!-- Visualization 4: Area -->
-    <div class="pure-g">
-      <div class="pure-u-1-1">
-        <div class="description">
-          <h2></h2>
-          <p></p>
-        </div>
-      </div>
-      <div class="pure-u-1-1">
-        <div id="area" class="visualization"></div>
-      </div>
+    <!-- Visualization 3: Monthly Currency in Circulation -->
+    <div class="description">
+      <h2>Currency in Circulation by Denomination</h2>
+      <p>This streamgraph visualizes the distribution of various currency denominations (notes and coins) in circulation each month. It provides insights into the demand for different denominations and how their usage changes over time, reflecting consumer behavior and economic trends.</p>
     </div>
-    <!-- end pure grid group -->
+    <div id="streamgraph" class="visualization"></div>
 
-    <!-- Visualization 5: Streamgraph -->
-    <div class="pure-g">
-      <div class="pure-u-1-1">
-        <div class="description">
-          <h2></h2>
-          <p></p>
-        </div>
-      </div>
-      <div class="pure-u-1-1">
-        <div id="streamgraph" class="visualization"></div>
+    <!-- Visualization 4: Exchange Rates Map -->
+    <div class="description">
+      <h2>Global Exchange Rates Against MYR</h2>
+      <p>This choropleth map shows the exchange rates of the Malaysian Ringgit (MYR) against major world currencies. By visualizing the global performance of the MYR, we can better understand Malaysia's trade competitiveness and international economic positioning.</p>
+    </div>
+    <div id="map" class="visualization"></div>
+
+    <!-- Footer with metadata -->
+    <div class="footer">
+      <div class="small-font">
+        <p>Created by <a href="https://github.com/k-cmy/FIT3179-DV2/tree/main">Chung Min Yi</a>. Data sourced from <a href="https://data.gov.my/data-catalogue/monetary_aggregates" target="_blank">Monetary Aggregates</a>, <a href="https://data.gov.my/data-catalogue/interestrates" target="_blank">Interest Rates</a>, <a href="https://data.gov.my/data-catalogue/exchangerates" target="_blank">Exchange Rates</a>, and more.</p>
+        <p>Last updated: October 2024</p>
       </div>
     </div>
 
-
-
-    <!-- Footer -->
-    <div class="pure-g footer">
-      <div class="pure-u-1-1 small-font">
-        <p>This visualization is created by <a href="https://github.com/k-cmy/FIT3179-DV2/tree/main">Chung Min Yi</a>. 
-        The data sources are from: 
-        <a href="https://data.world/finance/malaysia-largest-companies" target="_blank">Malaysia's Largest Companies Dataset</a>, 
-        <a href="https://data.gov.my/data-catalogue/exchangerates" target="_blank">Currency Exchange Rates from data.gov.my</a>, 
-        and 
-        <a href="https://data.gov.my/data-catalogue/interestrates" target="_blank">Monthly Interest Rate from data.gov.my</a>.
-        </p>
-      </div>
-    </div>
-
-  </div> <!-- end page -->
+  </div>
 
 </body>
 
