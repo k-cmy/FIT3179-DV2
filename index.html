@@ -76,60 +76,54 @@
     }
 
     .chart-container {
-  display: flex;
-  justify-content: center;
-  gap: 30px;
-  margin-bottom: 30px;
-    /* flex-wrap: wrap; Allow charts to wrap to the next line */
-    width: 100%; /* Allow charts to take full width */
-    height: auto;
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      margin-bottom: 30px;
+      width: 100%;
+      height: auto;
+    }
 
-}
+    .vis_container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: auto;
+      width: 100%;
+      row-gap: 20px;
+      column-gap: 20px;
+      gap: 20px;
+    }
 
-.vis_container {
-  display: flex;
-  /* smaller size for this container */
-  justify-content: center;
-  align-items: center;
-  height: auto;
-  width: 100%;
-  row-gap: 20px;
-  column-gap: 20px;
-  gap: 20px;
-}
+    .chart-wrapper {
+      width: auto;
+      box-sizing: border-box;
+      padding: 10px;
+      gap: 20px;
+      column-gap: 20px;
+      row-gap: 20px;
+    }
 
-.chart-wrapper {
-  width: auto; /* Slightly reduce the width to give more space between charts */
-  box-sizing: border-box; /* Ensure padding and border are included in the width */
-  padding: 10px;
-  gap: 20px;
-  column-gap: 20px;
-  row-gap: 20px; /* Add some internal padding for clarity */
-  /* align-items: center; */
-  /* align-content: center; */
-  }
-
-.visualization {
-    width: auto;
-    height: auto;
-  padding: 10px;
-  background-color: #e0e7ff;
-  border: 3px solid #4A90E2;
-  border-radius: 12px;
-  overflow: hidden; /* Prevent any overflowing elements */
-  align-items: center;
-  margin-bottom: 10px;
-    align-content: center;
-  max-width: 1250px;
-}
-
+    .visualization {
+      width: auto;
+      height: auto;
+      padding: 10px;
+      background-color: #e0e7ff;
+      border: 3px solid #4A90E2;
+      border-radius: 12px;
+      overflow: hidden;
+      align-items: center;
+      margin-bottom: 10px;
+      align-content: center;
+      max-width: 1250px;
+    }
 
     .footer {
       background-color: #4A90E2;
       color: white;
       padding: 20px;
       text-align: center;
-    align-items: center;
+      align-items: center;
     }
 
     .small-font {
@@ -145,13 +139,39 @@
       text-decoration: underline;
     }
 
+    /* New styles for colored bold text */
+    .monetary-aggregate { color: #2870c2; font-weight: bold; }
+    .interest-rate { color: #d72020; font-weight: bold; }
+    .currency { color: #006400; font-weight: bold; }
+    .exchange-rate { color: #78081C; font-weight: bold; }
+    /* I need a darker orange  */
+    .economic { color:#DD571C; font-weight: bold; }
+
+    .intro {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 22px;
+      line-height: 1.6;
+      color: #333;
+      margin: 30px auto;
+      max-width: 1250px;
+      text-align: justify;
+      padding: 20px;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .intro strong {
+      color: #4A90E2;
+    }
+
     @media (max-width: 768px) {
       .chart-container {
         flex-direction: column;
       }
       
       .chart-wrapper {
-        width: auto; /* Charts will take full width on smaller screens */
+        width: auto;
       }
     }
   </style>
@@ -161,19 +181,21 @@
 
   <div class="page">
     <h1>Financial Market Malaysia: A Data-Driven Insight</h1>
-    <p>This dashboard presents a comprehensive view of the Malaysian financial market through various visualizations. We explore key aspects such as monetary aggregates, interest rates, currency circulation, and exchange rates, providing you with an interactive experience to understand the trends and changes in Malaysia's economy.</p>
+    <p class="intro">
+      <strong>Financial markets in Malaysia</strong> play a crucial role in the country's economy, influencing everything from investment decisions to international trade. These markets encompass various <strong>financial instruments</strong> such as <strong>currencies, equities, bonds, and commodities</strong>, with <strong>exchange rates</strong> serving as a key indicator of economic health. The movement of the <strong>Malaysian Ringgit</strong> against other global currencies reflects broader market trends, economic conditions, and geopolitical events. Understanding these dynamics is essential for identifying patterns in <strong>currency valuation</strong>, assessing <strong>economic stability</strong>, and making informed decisions. Through the exploration of <strong>exchange rate trends</strong>, the analysis seeks to shed light on the interconnectedness of <strong>Malaysia's financial landscape</strong> with global economic forces.
+    </p>
 
     <!-- Visualization 1: Monetary Aggregates (M1, M2, M3) -->
     <div class="description">
       <h2>Monetary Aggregates: M1, M2, M3</h2>
-      <p>This area chart illustrates the flow of money in the economy, categorized by M1 (currency in circulation and demand deposits), M2 (including savings and fixed deposits), and M3 (broader money supply). This visualization shows how different forms of money supply have evolved over time, reflecting Malaysia's economic conditions and policy impacts.</p>
+      <p>This illustrates the <b class="monetary-aggregate">steady growth</b> of monetary aggregates from 2013 to 2024, highlighting the <b class="monetary-aggregate">increasing contributions</b> of components like <b class="monetary-aggregate">Fixed Deposits</b> and <b class="monetary-aggregate">Demand Deposits</b> to the overall money supply. This upward trend reflects <b class="economic">rising economic activity</b> and potential impacts of <b class="economic">monetary policies</b> over time. Additionally, the chart reveals the evolving composition of monetary components, offering insights into <b class="economic">consumer saving behaviors</b> and <b class="economic">seasonal monetary patterns</b>.</p>
     </div>
     <div id="area" class="visualization"></div>
 
     <!-- Visualization 2: Interest Rates (Monthly and Annual) -->
     <div class="description">
       <h2>Interest Rate Trends in Malaysia</h2>
-      <p>The line charts below represent the historical interest rates set by Bank Negara Malaysia. The left chart highlights monthly changes in lending and deposit rates, while the right chart shows yearly trends. This helps track borrowing costs and saving incentives over time, which are crucial for understanding Malaysia's financial landscape.</p>
+      <p>These showcases the <b class="interest-rate">trend</b> of <b class="interest-rate">monthly and annually interest rates</b> set by <b class="interest-rate">Bank Negara Malaysia</b> over a specified period. This <b class="economic">time-series analysis</b> helps in understanding how the <b class="economic">central bank's policies</b> have influenced the <b class="economic">financial environment</b>. The data reveals <b class="interest-rate">key moments</b> of <b class="interest-rate">rate adjustments</b>, potentially reflecting responses to <b class="economic">economic events</b> such as <b class="economic">inflation</b>, <b class="economic">recession</b>, or <b class="economic">global market changes</b>. The visualization allows for the identification of periods of <b class="interest-rate">higher or lower interest rates</b>, providing insights into how these <b class="interest-rate">fluctuations</b> could have impacted <b class="economic">borrowing costs, investments</b>, and <b class="economic">economic growth</b>.</p>
     </div>
     <div class="vis_container">
       <div class="chart-wrapper">
@@ -184,27 +206,27 @@
     <!-- Visualization 3: Monthly Currency in Circulation -->
     <div class="description">
       <h2>Currency in Circulation by Denomination</h2>
-      <p>This streamgraph visualizes the distribution of various currency denominations (notes and coins) in circulation each month. It provides insights into the demand for different denominations and how their usage changes over time, reflecting consumer behavior and economic trends.</p>
+      <p>
+        This illustrates the <b class="currency">evolution</b> of <b class="currency">currency in circulation</b> across different <b class="currency">denominations</b> in Malaysia over time. By using a <b class="currency">streamgraph</b>, it effectively highlights the changes in the <b class="currency">value of various coins and notes</b>, allowing for a clear understanding of <b class="currency">currency trends</b>. The chart reveals <b class="currency">notable shifts</b> in circulation, with certain denominations experiencing <b class="currency">growth or decline</b> at different periods. The <b class="currency">layered structure</b> of the visualization emphasizes the <b class="currency">composition</b> of the currency supply, providing insights into how <b class="economic">economic factors</b> or <b class="economic">monetary policies</b> may have influenced the <b class="currency">demand for specific denominations</b>.
+        </p>
     </div>
     <div id="streamgraph" class="visualization"></div>
 
     <!-- Visualization 4: Exchange Rates Map -->
     <div class="description">
       <h2>Global Exchange Rates Against MYR</h2>
-      <p>This choropleth map shows the exchange rates of the Malaysian Ringgit (MYR) against major world currencies. By visualizing the global performance of the MYR, we can better understand Malaysia's trade competitiveness and international economic positioning.</p>
+      <p>The map shows the <b class="exchange-rate">average exchange rates of the Malaysian Ringgit (MYR) worldwide in 2024</b>, with colors indicating the relative strength of currencies against 1 MYR. <strong class="exchange-rate">Regions in dark red</strong> have weaker currencies, requiring more local currency to equal 1 MYR, while <b class="exchange-rate">lighter areas</b> indicate stronger currency positions relative to the Ringgit. The visualization highlights <b class="exchange-rate">significant disparities across continents</b>, particularly in <b class="exchange-rate">South America and parts of Africa</b>, where exchange rates are highest, reflecting economic variations in currency valuation globally.</p>
     </div>
     <div id="map" class="visualization"></div>
 
     <!-- Footer with metadata -->
     <div class="footer">
       <div class="small-font">
-        <p>Created by <a href="https://github.com/k-cmy/FIT3179-DV2/tree/main">Chung Min Yi</a>. Data sourced from <a href="https://data.gov.my/data-catalogue/monetary_aggregates" target="_blank">Monetary Aggregates</a>, <a href="https://data.gov.my/data-catalogue/interestrates" target="_blank">Interest Rates</a>, <a href="https://data.gov.my/data-catalogue/exchangerates" target="_blank">Exchange Rates</a>, and more.</p>
-        <p>Last updated: October 2024</p>
+        <p>Created by <a href="https://github.com/k-cmy/FIT3179-DV2/tree/main">Chung Min Yi</a>. Data sources : <a href="https://data.gov.my/data-catalogue/monetary_aggregates" target="_blank">Monetary Aggregates</a>, <a href="https://data.gov.my/data-catalogue/interestrates" target="_blank">Monthly Interest Rates</a>, <a href="https://data.gov.my/data-catalogue/exchangerates" target="_blank">Exchange Rates</a>,<a href="https://data.gov.my/data-catalogue/interestrates_annual" target="_blank">Annually Interest Rates</a> ,<a href="https://data.gov.my/data-catalogue/currency_in_circulation" target="_blank">Monthly Currency in Circulation</a> from <a href="https://data.gov.my/data-catalogue">
+          Government of Malaysia © 2024 Public Sector Open Data</a>.</p>
+        <p>Last updated : 15 October 2024</p>
       </div>
     </div>
-
   </div>
-
 </body>
-
 </html>
