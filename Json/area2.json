@@ -1,0 +1,185 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "title": {
+      "text": "Monetary Aggregates Over Time",
+      "fontSize": 30,
+      "font": "Times New Roman",
+      "fontWeight": "bold"
+    },
+    "width": 1100,
+    "height": 550,
+    "data": {
+      "url": "https://raw.githubusercontent.com/k-cmy/FIT3179-DV2/main/Datasets/money_aggregates.csv"
+    },
+    "transform": [
+      {
+        "filter": {
+          "field": "measure",
+          "oneOf": [
+            "m1_total", "m2_total", "m3_total", "m1_currency", "m2_deposit_fixed", 
+            "m1_deposit_demand", "m2_deposit_saving", "m2_nid", "m2_repo", 
+            "m2_deposit_fx", "m2_deposit_other", "m3_deposit_other"
+          ]
+        }
+      },
+      {
+        "calculate": "datum.measure == 'm1_total' ? 'M1 Total' : datum.measure == 'm2_total' ? 'M2 Total' : datum.measure == 'm3_total' ? 'M3 Total' : datum.measure == 'm1_currency' ? 'Currency in Circulation' : datum.measure == 'm2_deposit_fixed' ? 'Fixed Deposits' : datum.measure == 'm1_deposit_demand' ? 'Demand Deposits' :datum.measure == 'm2_deposit_saving' ? 'Savings Deposits' :datum.measure == 'm2_nid' ? 'Negotiable Instruments of Deposit': datum.measure == 'm2_repo' ? 'Repurchase Agreements' :datum.measure == 'm2_deposit_fx' ? 'Foreign Currency Deposits' : datum.measure =='m2_deposit_other' ? 'Other Deposits (M2)' :datum.measure == 'm3_deposit_other' ? 'Other Deposits (M3)' :datum.measure",
+        "as": "Measure"
+      }
+    ],
+    "params": [
+      {
+        "name": "hover", 
+        "select": {
+          "type": "point", 
+          "on": "mouseover", 
+          "fields": ["Measure"], 
+          "clear": "mouseout"
+        }
+      },
+      {
+        "name": "brush",
+        "select": {
+          "type": "interval",
+          "encodings": ["x"]
+        }
+      },
+      {
+        "name": "M1_Total",
+        "value": true,
+        "bind": {"input": "checkbox", "name": "M1 Total"}
+      },
+      {
+        "name": "M2_Total",
+        "value": true,
+        "bind": {"input": "checkbox", "name": "M2 Total"}
+      },
+      {
+        "name": "M3_Total",
+        "value": true,
+        "bind": {"input": "checkbox", "name": "M3 Total"}
+      },
+      {
+        "name": "Currency_in_Circulation",
+        "value": false,
+        "bind": {"input": "checkbox", "name": "Currency in Circulation"}
+      },
+      {
+        "name": "Fixed_Deposits",
+        "value": false,
+        "bind": {"input": "checkbox", "name": "Fixed Deposits"}
+      },
+      {
+        "name": "Demand_Deposits",
+        "value": true,
+        "bind": {"input": "checkbox", "name": "Demand Deposits"}
+      },
+      {
+        "name": "Savings_Deposits",
+        "value": false,
+        "bind": {"input": "checkbox", "name": "Savings Deposits"}
+      },
+      {
+        "name": "NID",
+        "value": false,
+        "bind": {"input": "checkbox", "name": "Negotiable Instruments of Deposit"}
+      },
+      {
+        "name": "Repo",
+        "value":true,
+        "bind": {"input": "checkbox", "name": "Repurchase Agreements"}
+      },
+      {
+        "name": "FX_Deposits",
+        "value": false,
+        "bind": {"input": "checkbox", "name": "Foreign Currency Deposits"}
+      },
+      {
+        "name": "Other_Deposits_M2",
+        "value": false,
+        "bind": {"input": "checkbox", "name": "Other Deposits (M2)"}
+      },
+      {
+        "name": "Other_Deposits_M3",
+        "value": true,
+        "bind": {"input": "checkbox", "name": "Other Deposits (M3)"}
+      }
+    ],
+    "layer": [
+      {
+        "mark": {
+          "type": "area",
+          "tooltip": true
+        },
+        "encoding": {
+          "x": {
+            "field": "date",
+            "type": "temporal",
+            "title": "Date",
+            "axis": {"format": "%Y-%m", "titleFontSize": 16},
+            "scale": {"domain": {"param": "brush"}}
+          },
+          "y": {
+            "field": "value",
+            "type": "quantitative",
+            "title": "Value (RM million)",
+            "stack": "zero",
+            "axis": {"titleFontSize": 16}
+          },
+          "color": {
+            "field": "Measure",
+            "type": "nominal",
+            "title": "Monetary Aggregate Component",
+            "scale": {
+              "scheme": "tableau20"
+            }
+          },
+          "opacity": {
+            "condition": {
+              "param": "hover",
+              "value": 1
+            },
+            "value": 0.7
+          },
+          "tooltip": [
+            {"field": "date", "type": "temporal", "title": "Date", "format": "%Y-%m"},
+            {"field": "Measure", "type": "nominal", "title": "Measure"},
+            {"field": "value", "type": "quantitative", "title": "Value (RM million)", "format": ",.0f"}
+          ]
+        },
+        "transform": [
+          {
+            "filter": {
+              "or": [
+                {"and": [{"param": "M1_Total"}, {"field": "Measure", "equal": "M1 Total"}]},
+                {"and": [{"param": "M2_Total"}, {"field": "Measure", "equal": "M2 Total"}]},
+                {"and": [{"param": "M3_Total"}, {"field": "Measure", "equal": "M3 Total"}]},
+                {"and": [{"param": "Currency_in_Circulation"}, {"field": "Measure", "equal": "Currency in Circulation"}]},
+                {"and": [{"param": "Fixed_Deposits"}, {"field": "Measure", "equal": "Fixed Deposits"}]},
+                {"and": [{"param": "Demand_Deposits"}, {"field": "Measure", "equal": "Demand Deposits"}]},
+                {"and": [{"param": "Savings_Deposits"}, {"field": "Measure", "equal": "Savings Deposits"}]},
+                {"and": [{"param": "NID"}, {"field": "Measure", "equal": "Negotiable Instruments of Deposit"}]},
+                {"and": [{"param": "Repo"}, {"field": "Measure", "equal": "Repurchase Agreements"}]},
+                {"and": [{"param": "FX_Deposits"}, {"field": "Measure", "equal": "Foreign Currency Deposits"}]},
+                {"and": [{"param": "Other_Deposits_M2"}, {"field": "Measure", "equal": "Other Deposits (M2)"}]},
+                {"and": [{"param": "Other_Deposits_M3"}, {"field": "Measure", "equal": "Other Deposits (M3)"}]}
+              ]
+            }
+          }
+        ]
+      }
+    ],
+    "config": {
+      "legend": {
+        "orient": "top-left",
+        "titleFontSize": 14,
+        "labelFontSize": 12,
+        "direction": "vertical",
+        "titleLimit": 300,
+        "titlePadding": 10,
+        "labelLimit": 300,
+        "labelPadding": 10
+      },
+      "axis": {"domain": false, "labelColor": "#444", "titleColor": "#444"}
+    }
+  }
