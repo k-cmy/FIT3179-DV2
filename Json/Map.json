@@ -160,7 +160,9 @@
           {"name": "Europe", "latitude": 50, "longitude": 15},
           {"name": "Africa", "latitude":12, "longitude": 20},
           {"name": "Asia", "latitude": 40, "longitude": 100},
-          {"name": "Oceania", "latitude": -25, "longitude": 135}
+          {"name": "Oceania", "latitude": -25, "longitude": 135},
+          {"name": "Antarctica", "latitude": -80, "longitude": 0}
+
         ]
       },
       "mark": {

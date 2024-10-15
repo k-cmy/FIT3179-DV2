@@ -7,7 +7,7 @@
       "fontWeight": "bold"
     },
     "width": 1000,
-    "height": 500,
+    "height": 550,
     "data": {
       "url": "https://raw.githubusercontent.com/k-cmy/FIT3179-DV2/main/Datasets/money_aggregates.csv"
     },
