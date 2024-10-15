@@ -1,7 +1,7 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
     "description": "Interactive Streamgraph of Currency in Circulation over time",
-   "width": 1100,
+   "width": 1150,
     "height": 500,
     "title": {
         "text": "Currency in Circulation Over Time",
