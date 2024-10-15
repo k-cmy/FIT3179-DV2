@@ -51,7 +51,7 @@
       "color": {
         "field": "denomination_label",
         "type": "nominal",
-        "scale": {"scheme": "category20c"},
+        "scale": {"scheme": "tableau20"},
         "legend": {
           "title": "Denomination",
           "orient": "top-left",
